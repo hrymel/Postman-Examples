@@ -1,0 +1,276 @@
+{
+	"info": {
+		"_postman_id": "7df96ca2-2902-4056-8143-5de5f9fa8541",
+		"name": "SWAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Planet - Tatooine",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9bd649a-bcbe-4963-a762-ec28ad8eb410",
+						"type": "text/javascript",
+						"exec": [
+							"//response within time limti",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"//is the status good",
+							"pm.test(\"Response is ok\", () => {",
+							"    // same as pm.response.to.not.be.error",
+							"    pm.response.to.be.ok // enforce 200ish",
+							"    ",
+							"    pm.response.to.have.status(200);",
+							"    ",
+							"    // HTTP good, but contents cannot say error ",
+							"    pm.response.to.not.have.jsonBody(\"error\")",
+							"})",
+							"",
+							"//Validate the name",
+							"pm.test(\"Check Name\", () => {",
+							"    const jsonData = pm.response.json()",
+							"    pm.expect(jsonData.name).to.eql('Tatooine')",
+							"})",
+							"",
+							"///verify the time it takes to respond",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/planets/1/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"planets",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Planet - Tatooine - Wookie",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f2474870-9a53-4a24-9379-0fb7021cf7b9",
+						"type": "text/javascript",
+						"exec": [
+							"//response within time limti",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"//is the status good",
+							"pm.test(\"Response is ok\", () => {",
+							"    // same as pm.response.to.not.be.error",
+							"    pm.response.to.be.ok // enforce 200ish",
+							"    pm.response.to.have.status(200);",
+							"    ",
+							"    // HTTP good, but contents cannot say error ",
+							"    pm.response.to.not.have.jsonBody(\"error\")",
+							"})",
+							"",
+							"//Validate the name",
+							"pm.test(\"Check Name\", () => {",
+							"    const jsonData = pm.response.json()",
+							"    pm.expect(jsonData.whrascwo).to.eql('Traaoooooahwhwo')",
+							"})",
+							"",
+							"///verify the time it takes to respond",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/planets/1/?format=wookiee\n\n",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"planets",
+						"1",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "wookiee\n\n"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Try to POST - should deny",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75a05014-d81f-4b1e-b4c9-4864a967ee15",
+						"type": "text/javascript",
+						"exec": [
+							"//should not be able to post to this url",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"//make sure that body states that POST's are not allowed",
+							"pm.test(\"Message stating that Post is not allowed\", function () {",
+							"    pm.response.to.have.status(\"METHOD NOT ALLOWED\");",
+							"});",
+							"",
+							"///verify the time it takes to respond",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/planets/1/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"planets",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Try to DELETE - should deny",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db3a0c4c-634d-4b52-b0d2-94e3e5e0db83",
+						"type": "text/javascript",
+						"exec": [
+							"//should not be able to post to this url",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});",
+							"",
+							"",
+							"//make sure that body states that Delete's are not allowed",
+							"pm.test(\"Message stating that DELETE is not allowed\", function () {",
+							"    pm.response.to.have.status(\"METHOD NOT ALLOWED\");",
+							"});",
+							"",
+							"///verify the time it takes to respond",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/planets/1/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"planets",
+						"1",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Starships",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "529f50e8-baaa-4e44-bd48-fd7463878484",
+						"type": "text/javascript",
+						"exec": [
+							"var body = pm.response.json();",
+							"var ships = body.results.length;",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"//SWAPI return data paged. To test the correct number of ships (a static 37)",
+							"//go to the fourth page. Each page holds 10 results, so the last page should have 7 results.",
+							"pm.test(\"Response has the correct number of ships\", function() {",
+							"    pm.expect(ships).to.eql(7);",
+							"    //count should equal 37 - static value",
+							"    pm.expect(body.count).to.eql(37);",
+							"});",
+							"",
+							"//validate that there are no pages after for starships",
+							"pm.test(\"Is there a next page?\", () => {",
+							"    pm.expect(body.next).to.eql(null);",
+							"})",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{url}}/starships/?page=4",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"starships",
+						""
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
